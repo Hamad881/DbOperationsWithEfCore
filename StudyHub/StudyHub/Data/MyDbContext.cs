@@ -16,6 +16,7 @@ namespace StudyHub.Data
         public DbSet<Comment> Comment { get; set; }
         public DbSet<CommentReply> CommentReply { get; set; }
 
+        public DbSet<React> React { get; set; } 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,6 +34,11 @@ namespace StudyHub.Data
                 .WithMany(u => u.Comments)
                 .HasForeignKey(c => c.User_Id)
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<React>()
+                .HasOne(r => r.Post)
+                .WithMany(p=>p.Reacts)
+                .HasForeignKey(r=>r.Post_Id) .OnDelete(DeleteBehavior.Restrict);    
+               
         }
 
 

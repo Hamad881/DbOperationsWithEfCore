@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Linq;
+using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using StudyHub.Data;
 using StudyHub.Entities;
@@ -30,13 +31,14 @@ namespace StudyHub.Services
 
         public async Task<List<GetCommentDto>> GetCommentByPostAsync(int postId)
         {
-            var commentData = await context.Comment.Where(c => c.Post_Id == postId).Select(c => new GetCommentDto()
+            var commentData = await context.Comment.OrderByDescending(c=>c.Comment_Id).Where(c => c.Post_Id == postId).Select(c => new GetCommentDto()
             {
                 Comment_Id=c.Comment_Id,
                 Comment_text = c.Comment_Text,
                 Created_At = c.Created_At,
                 User_Id=c.User_Id,
-                UserName = c.User.Name
+                Username=c.User.Username,
+                Name = c.User.Name
             }).ToListAsync();
             return commentData;
         }

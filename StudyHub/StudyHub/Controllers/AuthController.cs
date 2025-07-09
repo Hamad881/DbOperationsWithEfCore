@@ -72,12 +72,23 @@ namespace StudyHub.Controllers
             return Ok(new { message = "User Updated!!" });
         }
 
-        [HttpGet ("userId")]
+        [HttpGet("userId")]
         public async Task<UserIdDto> GetUserId()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var result = await service.GetUserId(userId);
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
+            var result = await service.GetUserId(userId,username);
             return result;
+        }
+        [HttpGet("userDetailsById/{id:int}")]
+        public async Task<ActionResult<UserDetailsDto>> GetUserDetailsById([FromRoute]int id)
+        {
+            var result = await service.GetUserDetailsByIdAsync(id);
+            if (result == null)
+            {
+                return NotFound(new {message= "User Not Found!!"});
+            }
+            return Ok(result);
         }
 
     }

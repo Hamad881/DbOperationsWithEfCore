@@ -15,14 +15,14 @@ namespace StudyHub.Entities
         public int User_Id { get; set; }   
         public DateTime Created_At { get; set; }
 
-        [ForeignKey("Reply")]
-        public int? ReplyIdOfReply {  get; set; }
+        //[ForeignKey("Reply")]
+        //public int? ReplyIdOfReply {  get; set; }
 
-        public bool IsReply { get; set; } = false;
+        //public bool IsReply { get; set; } = false;
 
         public Comment Comment { get; set; }
         public User User { get; set; }
 
-        public CommentReply? Reply { get; set; }
+       // public CommentReply? Reply { get; set; }
     }
 }

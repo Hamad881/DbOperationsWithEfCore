@@ -15,8 +15,8 @@
         public string Comment_text { get; set; }
 
         public int User_Id { get; set; }
-
-        public string UserName { get; set; }
+        public string Username { get; set; }
+        public string Name { get; set; }
         public DateTime Created_At { get; set; }
     }
 }

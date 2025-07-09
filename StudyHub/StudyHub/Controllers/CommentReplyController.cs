@@ -18,15 +18,15 @@ namespace StudyHub.Controllers
             this.service = service;
         }
 
-        [HttpPost("AddReply")]
-        public async Task<ActionResult<CommentReply>> AddComment(CommentReplyDto request,int replyId)
+        [HttpPost("AddReply/{commentId}")]
+        public async Task<ActionResult<CommentReply>> AddComment(CommentReplyDto request, [FromRoute]int commentId)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
             {
                 return BadRequest("User not found!!");
             }
-            var commentReplyData = await this.service.AddCommentReplyAsync(userId,  replyId, request);
+            var commentReplyData = await this.service.AddCommentReplyAsync(userId, commentId, request);
 
             return Ok(new { message = "Reply Added!!" });
         }
@@ -37,8 +37,8 @@ namespace StudyHub.Controllers
             return (commentReply);
 
         }
-        [HttpDelete("deletecommentreply")]
-        public async Task<ActionResult<Comment>> DeleteCommentReply(int id)
+        [HttpDelete("deletecommentreply/{id:int}")]
+        public async Task<ActionResult<Comment>> DeleteCommentReply([FromRoute]int id)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var deleteCommnetReply = await this.service.DeleteCommentReplyAsync(id, userId);

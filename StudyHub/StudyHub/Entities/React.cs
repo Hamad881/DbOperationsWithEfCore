@@ -15,10 +15,10 @@ namespace StudyHub.Entities
         [ForeignKey("Post")]
         public int Post_Id { get; set; }    
 
-        public ReactType ReactType { get; set; }
+        public ReactType? ReactType { get; set; }
 
-        public User User { get; set; }
-        public Post Post { get; set; }
+        public User? User { get; set; }
+        public Post? Post { get; set; }
     }
 
     public enum ReactType

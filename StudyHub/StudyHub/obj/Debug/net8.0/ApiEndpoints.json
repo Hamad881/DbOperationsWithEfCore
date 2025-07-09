@@ -99,6 +99,32 @@
   },
   {
     "ContainingType": "StudyHub.Controllers.AuthController",
+    "Method": "GetUserDetailsById",
+    "RelativePath": "api/Auth/userDetailsById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyHub.Model.UserDetailsDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyHub.Controllers.AuthController",
     "Method": "GetUserId",
     "RelativePath": "api/Auth/userId",
     "HttpMethod": "GET",
@@ -125,6 +151,48 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyHub.Controllers.AwsFileController",
+    "Method": "DeleteUserPfpAsync",
+    "RelativePath": "api/AwsFile/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyHub.Controllers.AwsFileController",
+    "Method": "UploadFilesAsync",
+    "RelativePath": "api/AwsFile/upload",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyHub.Controllers.AwsFileController",
+    "Method": "GetUserPfpAsync",
+    "RelativePath": "api/AwsFile/userPfp",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -285,7 +353,7 @@
   {
     "ContainingType": "StudyHub.Controllers.CommentReplyController",
     "Method": "AddComment",
-    "RelativePath": "api/CommentReply/AddReply",
+    "RelativePath": "api/CommentReply/AddReply/{commentId}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -296,9 +364,9 @@
         "IsRequired": true
       },
       {
-        "Name": "replyId",
+        "Name": "commentId",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
@@ -316,7 +384,7 @@
   {
     "ContainingType": "StudyHub.Controllers.CommentReplyController",
     "Method": "DeleteCommentReply",
-    "RelativePath": "api/CommentReply/deletecommentreply",
+    "RelativePath": "api/CommentReply/deletecommentreply/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -324,7 +392,7 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
@@ -356,63 +424,6 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.List\u00601[[StudyHub.Model.GetCommentReplyDto, StudyHub, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "StudyHub.Controllers.PostController",
-    "Method": "UpdatePostData",
-    "RelativePath": "api/Post/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "request",
-        "Type": "StudyHub.Model.PostDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "StudyHub.Entities.Post",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "StudyHub.Controllers.PostController",
-    "Method": "DeletePost",
-    "RelativePath": "api/Post/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "StudyHub.Entities.Post",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -481,6 +492,115 @@
   },
   {
     "ContainingType": "StudyHub.Controllers.PostController",
+    "Method": "GetPostByOtherUserId",
+    "RelativePath": "api/Post/byOtherUserId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[StudyHub.Model.GetPostDto, StudyHub, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyHub.Controllers.PostController",
+    "Method": "GetPostByPostId",
+    "RelativePath": "api/Post/byPostId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyHub.Model.PostDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyHub.Controllers.PostController",
+    "Method": "DeletePost",
+    "RelativePath": "api/Post/delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyHub.Entities.Post",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyHub.Controllers.PostController",
+    "Method": "UpdatePostData",
+    "RelativePath": "api/Post/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "StudyHub.Model.PostDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyHub.Entities.Post",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyHub.Controllers.PostController",
     "Method": "GetCurrUserPosts",
     "RelativePath": "api/Post/UserOnly",
     "HttpMethod": "GET",
@@ -490,6 +610,89 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.List\u00601[[StudyHub.Model.GetPostDto, StudyHub, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyHub.Controllers.ReactController",
+    "Method": "AddReactToPost",
+    "RelativePath": "api/React/addReact/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "StudyHub.Model.ReactDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyHub.Entities.React",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyHub.Controllers.ReactController",
+    "Method": "GetReactByPostId",
+    "RelativePath": "api/React/reactCount/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyHub.Model.ReactCountDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyHub.Controllers.ReactController",
+    "Method": "RemoveReact",
+    "RelativePath": "api/React/removeReact/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyHub.Entities.React",
         "MediaTypes": [
           "text/plain",
           "application/json",

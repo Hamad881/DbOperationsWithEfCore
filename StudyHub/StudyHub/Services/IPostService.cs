@@ -12,6 +12,8 @@ namespace StudyHub.Services
 
         Task<List<GetPostDto>> GetPostByIdAsync(string userId);
 
-        Task<List<GetPostDto>> GetPostsAsync(int skip, int take);
+        Task<List<GetPostDto>> GetPostsAsync(int skip, int take,string userId);
+        Task<PostDto> GetPostByPostIdAsync(int postId);
+        Task<List<GetPostDto>> GetPostByOtherUserIdAsync(int userId);
     }
 }

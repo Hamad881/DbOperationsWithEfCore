@@ -87,20 +87,12 @@ namespace StudyHub.Migrations
                     b.Property<DateTime>("Created_At")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsReply")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("ReplyIdOfReply")
-                        .HasColumnType("int");
-
                     b.Property<int>("User_Id")
                         .HasColumnType("int");
 
                     b.HasKey("CommentRply_Id");
 
                     b.HasIndex("Comment_Id");
-
-                    b.HasIndex("ReplyIdOfReply");
 
                     b.HasIndex("User_Id");
 
@@ -135,6 +127,32 @@ namespace StudyHub.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Post");
+                });
+
+            modelBuilder.Entity("StudyHub.Entities.React", b =>
+                {
+                    b.Property<int>("React_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("React_Id"));
+
+                    b.Property<int>("Post_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReactType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("User_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("React_Id");
+
+                    b.HasIndex("Post_Id");
+
+                    b.HasIndex("User_Id");
+
+                    b.ToTable("React");
                 });
 
             modelBuilder.Entity("StudyHub.Entities.User", b =>
@@ -190,7 +208,7 @@ namespace StudyHub.Migrations
             modelBuilder.Entity("StudyHub.Entities.Comment", b =>
                 {
                     b.HasOne("StudyHub.Entities.Post", "Post")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("Post_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -214,10 +232,6 @@ namespace StudyHub.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("StudyHub.Entities.CommentReply", "Reply")
-                        .WithMany()
-                        .HasForeignKey("ReplyIdOfReply");
-
                     b.HasOne("StudyHub.Entities.User", "User")
                         .WithMany("CommentReplys")
                         .HasForeignKey("User_Id")
@@ -225,8 +239,6 @@ namespace StudyHub.Migrations
                         .IsRequired();
 
                     b.Navigation("Comment");
-
-                    b.Navigation("Reply");
 
                     b.Navigation("User");
                 });
@@ -250,9 +262,35 @@ namespace StudyHub.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("StudyHub.Entities.React", b =>
+                {
+                    b.HasOne("StudyHub.Entities.Post", "Post")
+                        .WithMany("Reacts")
+                        .HasForeignKey("Post_Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StudyHub.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("StudyHub.Entities.Comment", b =>
                 {
                     b.Navigation("Reply");
+                });
+
+            modelBuilder.Entity("StudyHub.Entities.Post", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Reacts");
                 });
 
             modelBuilder.Entity("StudyHub.Entities.User", b =>

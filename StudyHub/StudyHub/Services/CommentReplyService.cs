@@ -15,19 +15,19 @@ namespace StudyHub.Services
         {
             this.context = context;
         }
-        public async Task<CommentReply> AddCommentReplyAsync(string Id,int replyId, CommentReplyDto request)
+        public async Task<CommentReply> AddCommentReplyAsync(string Id,int commentId, CommentReplyDto request)
         {
             int parseId = int.Parse(Id);
             CommentReply commentReplyData = new CommentReply();
             commentReplyData.User_Id = parseId;
-            commentReplyData.Comment_Id = request.CommentId;
+            commentReplyData.Comment_Id = commentId;
             commentReplyData.Comment_Reply = request.ReplyText;
             commentReplyData.Created_At= DateTime.Now;
-            commentReplyData.IsReply= request.IsReply;
-            if(commentReplyData.IsReply==true)
-            {
-                commentReplyData.ReplyIdOfReply= replyId;
-            }
+            //commentReplyData.IsReply= request.IsReply;
+            //if(commentReplyData.IsReply==true)
+            //{
+            //    commentReplyData.ReplyIdOfReply= replyId;
+            //}
 
            
             context.CommentReply.Add(commentReplyData);
@@ -41,8 +41,10 @@ namespace StudyHub.Services
             {
                 ReplyText = cr.Comment_Reply,
                 CreatedAt = cr.Created_At,
-                UserName = cr.User.Name
-
+                Name = cr.User.Name,
+                Username = cr.User.Username,
+                User_Id = cr.User.Id,
+                Reply_Id= cr.CommentRply_Id
             }).ToListAsync();
             return commentReplyData;
         }
@@ -53,7 +55,7 @@ namespace StudyHub.Services
             if (commentReply.User_Id == parsedId)
             {
 
-                await DeleteSubReply(commentReply);
+                //await DeleteSubReply(commentReply);
                 
                 context.CommentReply.Remove(commentReply);
                
@@ -62,15 +64,15 @@ namespace StudyHub.Services
             }
             return null;
         }
-        private async Task DeleteSubReply(CommentReply commentReply)
-        {
-            var subReply = await context.CommentReply.Where(cr=> cr.ReplyIdOfReply == commentReply.CommentRply_Id).ToListAsync();
-            foreach (var reply in subReply) 
-            { 
-                await DeleteSubReply(reply);
-                context.CommentReply.Remove(reply);
-            }
+        //private async Task DeleteSubReply(CommentReply commentReply)
+        //{
+        //    var subReply = await context.CommentReply.Where(cr=> cr.ReplyIdOfReply == commentReply.CommentRply_Id).ToListAsync();
+        //    foreach (var reply in subReply) 
+        //    { 
+        //        await DeleteSubReply(reply);
+        //        context.CommentReply.Remove(reply);
+        //    }
 
-        }
+        //}
     }
 }

@@ -223,6 +223,111 @@
         }
       }
     },
+    "/api/Auth/userDetailsById/{id}": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AwsFile/upload": {
+      "post": {
+        "tags": [
+          "AwsFile"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/AwsFile/userPfp": {
+      "get": {
+        "tags": [
+          "AwsFile"
+        ],
+        "parameters": [
+          {
+            "name": "userName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/AwsFile/delete": {
+      "delete": {
+        "tags": [
+          "AwsFile"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Cat": {
       "post": {
         "tags": [
@@ -501,15 +606,16 @@
         }
       }
     },
-    "/api/CommentReply/AddReply": {
+    "/api/CommentReply/AddReply/{commentId}": {
       "post": {
         "tags": [
           "CommentReply"
         ],
         "parameters": [
           {
-            "name": "replyId",
-            "in": "query",
+            "name": "commentId",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -607,7 +713,7 @@
         }
       }
     },
-    "/api/CommentReply/deletecommentreply": {
+    "/api/CommentReply/deletecommentreply/{id}": {
       "delete": {
         "tags": [
           "CommentReply"
@@ -615,7 +721,8 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -694,7 +801,7 @@
         }
       }
     },
-    "/api/Post/{id}": {
+    "/api/Post/update/{id}": {
       "put": {
         "tags": [
           "Post"
@@ -751,7 +858,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/api/Post/delete/{id}": {
       "delete": {
         "tags": [
           "Post"
@@ -884,6 +993,234 @@
           }
         }
       }
+    },
+    "/api/Post/byPostId/{id}": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Post/byOtherUserId/{id}": {
+      "get": {
+        "tags": [
+          "Post"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GetPostDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GetPostDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GetPostDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/React/addReact/{id}": {
+      "post": {
+        "tags": [
+          "React"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReactDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReactDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReactDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/React"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/React"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/React"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/React/reactCount/{id}": {
+      "get": {
+        "tags": [
+          "React"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReactCountDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReactCountDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReactCountDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/React/removeReact/{id}": {
+      "delete": {
+        "tags": [
+          "React"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/React"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/React"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/React"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -978,22 +1315,11 @@
             "type": "string",
             "format": "date-time"
           },
-          "replyIdOfReply": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "isReply": {
-            "type": "boolean"
-          },
           "comment": {
             "$ref": "#/components/schemas/Comment"
           },
           "user": {
             "$ref": "#/components/schemas/User"
-          },
-          "reply": {
-            "$ref": "#/components/schemas/CommentReply"
           }
         },
         "additionalProperties": false
@@ -1004,13 +1330,6 @@
           "replyText": {
             "type": "string",
             "nullable": true
-          },
-          "commentId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "isReply": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -1030,7 +1349,11 @@
             "type": "integer",
             "format": "int32"
           },
-          "userName": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
             "type": "string",
             "nullable": true
           },
@@ -1044,17 +1367,29 @@
       "GetCommentReplyDto": {
         "type": "object",
         "properties": {
+          "reply_Id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "replyText": {
             "type": "string",
             "nullable": true
           },
-          "userName": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "username": {
             "type": "string",
             "nullable": true
           },
           "createdAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "user_Id": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -1070,9 +1405,17 @@
             "type": "string",
             "nullable": true
           },
+          "user_Id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "cat_Id": {
             "type": "integer",
             "format": "int32"
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
           },
           "dateCreated": {
             "type": "string",
@@ -1085,6 +1428,18 @@
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "likes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dislikes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "react_Id": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -1117,6 +1472,20 @@
           },
           "categories": {
             "$ref": "#/components/schemas/Categories"
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Comment"
+            },
+            "nullable": true
+          },
+          "reacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/React"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1134,6 +1503,68 @@
           }
         },
         "additionalProperties": false
+      },
+      "React": {
+        "type": "object",
+        "properties": {
+          "react_Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "user_Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "post_Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "reactType": {
+            "$ref": "#/components/schemas/ReactType"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "post": {
+            "$ref": "#/components/schemas/Post"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReactCountDto": {
+        "type": "object",
+        "properties": {
+          "react_Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "postLikes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "postDislikes": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReactDto": {
+        "type": "object",
+        "properties": {
+          "react": {
+            "$ref": "#/components/schemas/ReactType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReactType": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "User": {
         "type": "object",
@@ -1276,6 +1707,10 @@
           "user_Id": {
             "type": "integer",
             "format": "int32"
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

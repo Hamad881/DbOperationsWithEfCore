@@ -29,20 +29,20 @@ namespace StudyHub.Controllers
             return Ok(new { message = "Post Added!!" });
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Post>> UpdatePostData(int id, PostDto request)
+        [HttpPut("update/{id:int}" )]
+        public async Task<ActionResult<Post>> UpdatePostData([FromRoute]int id, [FromBody]PostDto request)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             var updated = await service.UpdatePost(userId,id,request);
             if (updated == null)
             {
-                return BadRequest("Something went wrong!");
+                return BadRequest(new { message = "Something went wrong!" });
             }
-            return Ok(updated);
+            return Ok(new { message = "Post Updated!!" });
         }
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Post>> DeletePost(int id)
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult<Post>> DeletePost([FromRoute]int id)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var delPost= await service.DeletePostAsync(userId,id);
@@ -50,7 +50,7 @@ namespace StudyHub.Controllers
             {
                 return BadRequest("Something went wrong");
             }
-            return Ok("Post Deleted");
+            return Ok(new { message = "Post Deleted" });
         }
 
         [HttpGet("UserOnly")]
@@ -65,11 +65,33 @@ namespace StudyHub.Controllers
         [HttpGet("all")]
         public async Task<List<GetPostDto>> GetPosts(int skip,int take)
         {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
 
-            var result= await service.GetPostsAsync(skip,take);
+            var result = await service.GetPostsAsync(skip,take, userId);
             return result;
 
+        }
+        [HttpGet("byPostId/{id:int}")]
+        public async Task<ActionResult<PostDto>> GetPostByPostId([FromRoute] int id)
+        {
+            var result = await service.GetPostByPostIdAsync(id);
+            if (result == null)
+            {
+                return NotFound("No result Found!!");
+            }
+            return Ok(result);  
+        }
+
+        [HttpGet("byOtherUserId/{id:int}")]
+        public async Task<ActionResult<List<GetPostDto>>> GetPostByOtherUserId([FromRoute]int id)
+        {
+            var result = await service.GetPostByOtherUserIdAsync(id);
+            if (result == null)
+            {
+                return NotFound(new { message = "Post not Found!!" });
+            }
+            return Ok(result);
         }
     }
 }

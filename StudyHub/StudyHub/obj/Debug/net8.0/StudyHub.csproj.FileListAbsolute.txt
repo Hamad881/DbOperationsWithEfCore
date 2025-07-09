@@ -174,3 +174,6 @@ E:\Entity Framework Core\src\DbOperationsWithEfCore\StudyHub\StudyHub\obj\Debug\
 E:\Entity Framework Core\src\DbOperationsWithEfCore\StudyHub\StudyHub\obj\Debug\net8.0\StudyHub.pdb
 E:\Entity Framework Core\src\DbOperationsWithEfCore\StudyHub\StudyHub\obj\Debug\net8.0\StudyHub.genruntimeconfig.cache
 E:\Entity Framework Core\src\DbOperationsWithEfCore\StudyHub\StudyHub\obj\Debug\net8.0\ref\StudyHub.dll
+E:\Entity Framework Core\src\DbOperationsWithEfCore\StudyHub\StudyHub\bin\Debug\net8.0\AWSSDK.Core.dll
+E:\Entity Framework Core\src\DbOperationsWithEfCore\StudyHub\StudyHub\bin\Debug\net8.0\AWSSDK.Extensions.NETCore.Setup.dll
+E:\Entity Framework Core\src\DbOperationsWithEfCore\StudyHub\StudyHub\bin\Debug\net8.0\AWSSDK.S3.dll

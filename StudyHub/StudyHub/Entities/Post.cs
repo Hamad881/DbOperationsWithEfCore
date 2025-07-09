@@ -21,6 +21,10 @@ namespace StudyHub.Entities
        public User User { get; set; }
        
         public Categories Categories { get; set; }
+
+        public List<Comment> Comments { get; set; }
+
+        public List<React> Reacts { get; set; } 
     }
 }
  

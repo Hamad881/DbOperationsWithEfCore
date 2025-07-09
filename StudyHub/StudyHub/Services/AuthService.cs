@@ -5,7 +5,9 @@ using StudyHub.Data;
 using StudyHub.Entities;
 using StudyHub.Model;
 using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using System.IdentityModel.Tokens.Jwt;
+using System.Numerics;
 using System.Security.Claims;
 using System.Text;
 
@@ -121,14 +123,36 @@ namespace StudyHub.Services
             return userData;
 
         }
-        public async Task<UserIdDto> GetUserId(string userId)
+        public async Task<UserIdDto> GetUserId(string userId,string username)
         {
             var parsedId = int.Parse(userId);
+           
             UserIdDto userData = new UserIdDto()
             {
                 User_Id = parsedId,
+                Username = username
             };
             return userData;
+        }
+        public async Task<UserDetailsDto> GetUserDetailsByIdAsync(int userId)
+        {
+            var userData = context.Users.Find( userId);
+            if (userData == null)
+            {
+                return null;
+            }
+            UserDetailsDto userDetails = new UserDetailsDto()
+            {
+                Name = userData.Name,
+                Username = userData.Username,
+                Email = userData.Email,
+                Education = userData.Education,
+                Country = userData.Country,
+                Address = userData.Address,
+                Phone = userData.Phone,
+                AboutInfo = userData.AboutInfo
+            };
+            return userDetails;
         }
 
 

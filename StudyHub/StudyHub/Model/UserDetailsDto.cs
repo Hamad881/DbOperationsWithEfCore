@@ -23,5 +23,6 @@ namespace StudyHub.Model
     public class UserIdDto
     {
         public int User_Id { get; set; }
+        public string Username { get; set; }
     }
 }
